@@ -37,16 +37,12 @@ class Lexer:
 
     def make_tokens(self):
         tokens = []
-        occurances = {
-            IDENTIFICATOR : 0,
-            OPERATOR : 0,
-            SEPARATOR : 0,
-        }
 
         operators = {}
         identificators = {}
         comments = {}
         separators = {}
+        constans = {}
 
         while self.current_char != None:
             if self.current_char in '\t':
@@ -79,8 +75,15 @@ class Lexer:
                 else:
                     comments[self.current_char] = 1
                 self.advance()
+            elif self.current_char >= '0' and self.current_char <= '9':
+                tokens.append(f"('{self.current_char}',{Token(CONSTANT)})")
+                if self.current_char in constans:
+                    constans[self.current_char] += 1
+                else:
+                    constans[self.current_char] = 1
+                self.advance()
             
-        return tokens, separators, identificators, operators, comments
+        return tokens, separators, identificators, operators, comments, constans
 
     
 ##########################################
@@ -89,8 +92,8 @@ class Lexer:
 
 def run(text):
     lexer = Lexer(text)
-    tokens, separators, identifiators, operators, comments = lexer.make_tokens()
+    tokens, separators, identifiators, operators, comments, constants = lexer.make_tokens()
 
-    return tokens, separators, identifiators, operators, comments
+    return tokens, separators, identifiators, operators, comments, constants
 
 
