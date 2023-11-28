@@ -1,7 +1,7 @@
 import main
 
-text = input("basic > ")
-result, separators, identificators, operators, comments = main.run(text)
+text = input(">> ")
+result, separators, identificators, operators, comments, constants = main.run(text)
 
 for res in result:
     print(res)
@@ -18,4 +18,5 @@ print(f"komentari [{len(comments)}]: " + com)
 sep = "".join("'{}'[{}], ".format(k,v) for k,v in separators.items())
 print(f"separatori [{len(separators)}]: " + sep)
 
-
+const = "".join("'{}'[{}], ".format(k,v) for k,v in constants.items())
+print(f"konstante [{len(constants)}]: " + const)
