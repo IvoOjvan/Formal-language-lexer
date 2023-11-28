@@ -51,41 +51,8 @@ class Lexer:
         while self.current_char != None:
             if self.current_char in '\t':
                 self.advance()
-            elif self.current_char == '+':
+            elif self.current_char == '+' or self.current_char == '-' or self.current_char == '*' or self.current_char == '/' or self.current_char == '=':
                 tokens.append(f"('{self.current_char}',{Token(OPERATOR)})")
-                occurances[OPERATOR] += 1
-                if self.current_char in operators:
-                    operators[self.current_char] += 1
-                else:
-                    operators[self.current_char] = 1
-                self.advance()
-            elif self.current_char == '=':
-                tokens.append(f"('{self.current_char}',{Token(OPERATOR)})")
-                occurances[OPERATOR] += 1
-                if self.current_char in operators:
-                    operators[self.current_char] += 1
-                else:
-                    operators[self.current_char] = 1
-                self.advance()
-            elif self.current_char == '-':
-                tokens.append(f"('{self.current_char}',{Token(OPERATOR)})")
-                occurances[OPERATOR] += 1
-                if self.current_char in operators:
-                    operators[self.current_char] += 1
-                else:
-                    operators[self.current_char] = 1
-                self.advance()
-            elif self.current_char == '*':
-                tokens.append(f"('{self.current_char}',{Token(OPERATOR)})")
-                occurances[OPERATOR] += 1
-                if self.current_char in operators:
-                    operators[self.current_char] += 1
-                else:
-                    operators[self.current_char] = 1
-                self.advance()
-            elif self.current_char == '/':
-                tokens.append(f"('{self.current_char}',{Token(OPERATOR)})")
-                occurances[OPERATOR] += 1
                 if self.current_char in operators:
                     operators[self.current_char] += 1
                 else:
@@ -93,20 +60,12 @@ class Lexer:
                 self.advance()
             elif self.current_char >= 'a' and self.current_char <= 'z':
                 tokens.append(f"('{self.current_char}',{Token(IDENTIFICATOR)})")
-                occurances[IDENTIFICATOR] += 1
                 if self.current_char in identificators:
                     identificators[self.current_char] += 1
                 else:
                     identificators[self.current_char] = 1
                 self.advance()
-            elif self.current_char == ' ':
-                tokens.append(f"('{self.current_char}',{Token(SEPARATOR)})")
-                if self.current_char in separators:
-                    separators[self.current_char] += 1
-                else:
-                    separators[self.current_char] = 1
-                self.advance()
-            elif self.current_char == ';':
+            elif self.current_char == ' ' or self.current_char == ';':
                 tokens.append(f"('{self.current_char}',{Token(SEPARATOR)})")
                 if self.current_char in separators:
                     separators[self.current_char] += 1
